@@ -6,38 +6,44 @@
     <title>Simulador</title>
 </head>
 <body>
+
    <h1>Simulador Financeiro</h1>
 
-   <h3>Saiba os prejuízos que você terá caso não invista no nosso projeto:</h3>
+   <h3>Saiba os prejuízos que você terá por safra, caso não invista no nosso projeto:</h3>
 
+    <!--4 campos de inserir e um botão-->
    Quantos m² de solo fértil possui sua estufa?: <input id="ipt_metros"><br>
-   Que tipo de tomate você planta?: <input id="ipt_tipo"><br>
-   Produtividade por m² (em kg): <input id="ipt_produtividade"><br>
+   Qual a média de produtividade por pé de tomate na sua estufa(em kg)?: <input id="ipt_produtividade"><br>
    Valor de venda (R$ por kg): <input id="ipt_venda"><br>
 
-   <br> <button onclick="tomate()">Calcule seus prejuízos</button><br>
+   <br><button onclick="tomate()">Calcule seus prejuízos</button> <h4>(E caso você queira ver seu prejuízo e seu lucro sendo acumulados por safra, clique novamente no botão.)</h4><br>
    <br> <div id="div_msg"></div>
+</body>
 
 <script>
-    let mes = 0;
+    //Variáveis globais para acumular no final
+    let safra= 0;
     let acumulado = 0;
-    
+    let acumulado2 = 0;
 
     function tomate() {
+        //Variáveis para nomear os valores inseridos
         let venda = Number(ipt_venda.value);
         let metros = Number(ipt_metros.value);
-        let tipo = ipt_tipo.value;
         let produtividade = Number(ipt_produtividade.value);
-
-        let plantas = metros * 2 
+        
+        //Cálculos
+        let plantas = metros * 2 ;
         let resultado = plantas * produtividade; 
-        let total = resultado * 0.125
-        mes += 120;
-        acumulado += total; 
+        let total = resultado * venda;
+        let prejuizo = total * 0.125;
 
-        div_msg.innerHTML += 
-            `A cada ${mes} dias a sua plantação de ${tipo} tem um prejuízo de R$ ${acumulado.toFixed(2)}<br>`;
+        safra += 1;
+        acumulado += prejuizo; 
+        acumulado2 += total;
+
+        div_msg.innerHTML +=  `A cada ${safra} safra, com a estufa controlada você lucraria R$${acumulado2.toFixed(2)} no total, porém sem esse 
+            monitoramento você sofre um prejuízo de R$${acumulado.toFixed(2)} na sua plantação de tomate <br>`;
     }
 </script>
-</body>
 </html>
